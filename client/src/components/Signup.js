@@ -60,9 +60,6 @@ const Signup = (props) => {
             name="name"
             aria-describedby="emailHelp"
           />
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
         </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
