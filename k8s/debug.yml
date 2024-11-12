@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curlpod
+  namespace: todo
+spec:
+  containers:
+  - name: curl-container
+    image: ubuntu
+    command: ["sleep", "3600"]

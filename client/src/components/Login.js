@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import "./signup.css"
 
 const Login = (props) => {
+    const url = process.env.REACT_APP_URL
     let navigate = useNavigate();
     const [credentials, setcredentials] = useState({ email: "", password: "" })
 
@@ -13,7 +14,7 @@ const Login = (props) => {
             headers: { 'Content-Type': 'application/json', },
             body: JSON.stringify({email :credentials.email,password:credentials.password})
         };
-        const response = await fetch(`/api/auth/loginuser`, requestOptions);
+        const response = await fetch(`${url}/api/auth/loginuser`, requestOptions);
         const data = await response.json();
         console.log(data);
         if(data.success=== true){

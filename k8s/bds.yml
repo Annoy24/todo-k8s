@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  todoapp-backend
+  namespace: todo
+  labels:
+    app:  todo-backend
+spec:
+  selector:
+    matchLabels:
+      app: todo-backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  todo-backend
+    spec:
+      containers:
+      - name: backend-container
+        image: annyo2024/todo-backend:v2
+        env:
+        - name: DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: myconfigmap
+              key: database-url
+        ports:
+        - containerPort:  5000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservice-backend
+  namespace: todo
+spec:
+  selector:
+    app: todo-backend
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-client
+  namespace: todo
+spec:
+  selector:
+    matchLabels:
+      app: todo-client
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  todo-client
+    spec:
+      containers:
+      - name: todo-client
+        image: annyo2024/todo-client:v2
+        env:
+        - name: REACT_APP_URL
+          valueFrom:
+            configMapKeyRef:
+              name: myconfigmap
+              key: backend-url
+        ports:
+        - containerPort:  3000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservice
+  namespace: todo
+spec:
+  selector:
+    app: todo-client
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+    nodePort: 32500

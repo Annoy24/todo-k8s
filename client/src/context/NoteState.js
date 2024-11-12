@@ -2,6 +2,7 @@ import { useState } from "react";
 import noteContext from "./noteContext";
 
 const NoteState = (props) => {
+  const url = process.env.REACT_APP_URL
   const noteInitial = [];
 
   const [notes, setNotes] = useState(noteInitial);
@@ -15,7 +16,7 @@ const NoteState = (props) => {
       },
     };
     const response = await fetch(
-      `/api/notes/fetchallnotes`,
+      `${url}/api/notes/fetchallnotes`,
       requestOptions
     );
     const data = await response.json();
@@ -32,7 +33,7 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     };
-    const response = await fetch(`/api/notes/addnote`, requestOptions);
+    const response = await fetch(`${url}/api/notes/addnote`, requestOptions);
     const data = await response.json({ title, description, tag });
     console.log(data);
     setNotes(notes.concat(data));
@@ -48,7 +49,7 @@ const NoteState = (props) => {
       },
     };
     const response = await fetch(
-      `/api/notes/deletenote/${id}`,
+      `${url}/api/notes/deletenote/${id}`,
       requestOptions
     );
     const data = await response.json();
@@ -71,7 +72,7 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }),
     };
     const response = await fetch(
-      `/api/notes/updatenote/${id}`,
+      `${url}/api/notes/updatenote/${id}`,
       requestOptions
     );
     const data = await response.json();

@@ -9,6 +9,12 @@ app.use(cors())
 
 app.use(express.json());  //middleware in order to get value of req.body
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "Hello world",
+  });
+});
+
 //available routes
 app.use('/api/auth' , require('./routes/auth'))
 app.use('/api/notes' , require('./routes/notes'))
